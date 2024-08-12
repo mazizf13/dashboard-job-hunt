@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format:write": "prettier --write \"**/*.{js,mjs,cjs,ts,tsx,css,json,md}\" && prisma format",
+    "format:check": "prettier --check \"**/*.{js,mjs,cjs,ts,tsx,css,json,md}\" && prisma format && git diff --exit-code packages/db/prisma/schema.prisma"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
@@ -26,6 +28,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.4",
     "postcss": "^8",
+    "prettier": "^3.3.3",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
