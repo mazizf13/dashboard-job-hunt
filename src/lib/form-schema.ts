@@ -29,17 +29,17 @@ export const jobFromSchema = z.object({
     })
     .max(1000, { message: "Job Description must not exceed 2000 characters!" }),
   responsibility: z
-    .string({ required_error: "Responsibility is required!" })
-    .min(10, { message: "Responsibility must be at least 10 characters long!" })
-    .max(1000, { message: "Responsibility must not exceed 2000 characters!" }),
+    .string({ required_error: "Responsibilities is required!" })
+    .min(10, { message: "Responsibilities must be at least 10 characters long!" })
+    .max(1000, { message: "Responsibilities must not exceed 2000 characters!" }),
   whoYouAre: z
     .string({ required_error: "Who You Are is required!" })
-    .min(10, { message: "Responsibility must be at least 10 characters long!" })
-    .max(1000, { message: "Responsibility must not exceed 2000 characters!" }),
+    .min(10, { message: "Who You Are must be at least 10 characters long!" })
+    .max(1000, { message: "Who You Are must not exceed 2000 characters!" }),
   niceToHaves: z
-    .string({ required_error: "Nice to Haves is required!" })
-    .min(10, { message: "Responsibility must be at least 10 characters long!" })
-    .max(1000, { message: "Responsibility must not exceed 2000 characters!" }),
+    .string({ required_error: "Nice-To-Haves is required!" })
+    .min(10, { message: "Nice-To-Haves must be at least 10 characters long!" })
+    .max(1000, { message: "Nice-To-Haves must not exceed 2000 characters!" }),
   benefits: z
     .object({
       benefit: z.string(),

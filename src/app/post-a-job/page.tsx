@@ -223,7 +223,7 @@ const PostJobPage: FC<PostJobPageProps> = ({}) => {
 
           {/* Job Descriptions */}
           <FieldInput
-            title="Job Descriptions"
+            title="Job Description"
             subtitle="Job description must be describe one position"
           >
             <CKEditor
