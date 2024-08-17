@@ -80,7 +80,7 @@ const InputSkills: FC<InputSkillsProps> = ({ form, name, label }) => {
                   <Input
                     ref={inputRef}
                     className="w-[246px]"
-                    placeholder="JavaScript"
+                    placeholder="e.g. JavaScript"
                   />
                   <Button type="button" onClick={handleSaveValue}>
                     Save

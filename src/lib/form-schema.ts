@@ -1,4 +1,4 @@
-import { JOBTYPES } from "@/constant";
+import { JOBTYPES } from "@/constants";
 import { z } from "zod";
 
 export const jobFromSchema = z.object({
