@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Building,
@@ -9,11 +11,14 @@ import {
   Settings,
   Users,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import React, { FC } from "react";
 
 interface SidebarProps {}
 
 const Sidebar: FC<SidebarProps> = ({}) => {
+  const router = useRouter();
+
   return (
     <div className="vb-12 min-h-screen">
       <div className="space-y-4 py-4">
@@ -23,6 +28,7 @@ const Sidebar: FC<SidebarProps> = ({}) => {
             <Button
               variant={"ghost"}
               className="w-full justify-start rounded-none hover:text-primary"
+              onClick={() => router.push("/")}
             >
               <House className="mr-2 text-lg" />
               Home
@@ -51,6 +57,7 @@ const Sidebar: FC<SidebarProps> = ({}) => {
             <Button
               variant={"ghost"}
               className="w-full justify-start rounded-none hover:text-primary"
+              onClick={() => router.push("/job-listings")}
             >
               <ClipboardPlus className="mr-2 text-lg" />
               Job Listing
