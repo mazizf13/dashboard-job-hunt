@@ -2,7 +2,9 @@
 
 import CKEditor from "@/components/organisms/CKEditor";
 import FieldInput from "@/components/organisms/FieldInput";
+import InputBenefits from "@/components/organisms/InputBenefits";
 import InputSkills from "@/components/organisms/InputSkills";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -38,7 +40,7 @@ const PostJobPage: FC<PostJobPageProps> = ({}) => {
   const form = useForm<z.infer<typeof jobFromSchema>>({
     resolver: zodResolver(jobFromSchema),
     defaultValues: {
-      requiredSkill: [],
+      requiredSkills: [],
     },
   });
 
@@ -266,6 +268,18 @@ const PostJobPage: FC<PostJobPageProps> = ({}) => {
               editorLoaded={editorLoaded}
             />
           </FieldInput>
+
+          {/* Perks and Benefits */}
+          <FieldInput
+            title="Perks and Benefits"
+            subtitle="Encourage more people to apply by sharing the acctractive rewards and benefits you offer your employees"
+          >
+            <InputBenefits form={form} />
+          </FieldInput>
+
+          <div className="flex justify-end">
+            <Button size="lg">Do a Review</Button>
+          </div>
         </form>
       </Form>
     </div>
