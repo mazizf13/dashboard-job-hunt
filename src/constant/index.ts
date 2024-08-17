@@ -8,4 +8,5 @@ export const JOBTYPES: EnumValues = [
   "Freelance",
   "Internship",
   "Temporary",
+  "Traineeship",
 ];
