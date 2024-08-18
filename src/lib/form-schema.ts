@@ -52,3 +52,41 @@ export const jobFromSchema = z.object({
     .array()
     .nonempty({ message: "Benefits must be at least 1 benefit" }),
 });
+
+export const overvierFormSchema = z.object({
+  image: z
+    .any()
+    .refine((item: any) => item?.name, { message: "Please upload an image" }),
+  name: z
+    .string({ required_error: "Name is required!" })
+    .min(3, { message: "Name must be at least 3 characters long!" })
+    .max(50, { message: "Name must not exceed 50 characters!" }),
+  website: z
+    .string({ required_error: "Website is required!" })
+    .min(3, { message: "Website must be at least 3 characters long!" })
+    .max(50, { message: "Website must not exceed 50 characters!" }),
+  location: z
+    .string({ required_error: "Location is required!" })
+    .min(3, { message: "Location must be at least 3 characters long!" })
+    .max(50, { message: "Location must not exceed 50 characters!" }),
+  employee: z
+    .string({ required_error: "Employee is required!" })
+    .min(3, { message: "Employee must be at least 3 characters long!" })
+    .max(50, { message: "Employee must not exceed 50 characters!" }),
+  industry: z
+    .string({ required_error: "Industry is required!" })
+    .min(3, { message: "Industry must be at least 3 characters long!" })
+    .max(50, { message: "Industry must not exceed 50 characters!" }),
+  dateFounded: z
+    .string({ required_error: "Date founded is required!" })
+    .min(3, { message: "Date founded must be at least 3 characters long!" })
+    .max(50, { message: "Date founded must not exceed 50 characters!" }),
+  techStack: z
+    .string()
+    .array()
+    .nonempty({ message: "Tech Stack must be at least 1 tech stack" }),
+  description: z
+    .string({ required_error: "Description is required!" })
+    .min(10, { message: "Description must be at least 10 characters long!" })
+    .max(1000, { message: "Description must not exceed 1000 characters!" }),
+});
