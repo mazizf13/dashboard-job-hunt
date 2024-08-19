@@ -58,28 +58,19 @@ export const overvierFormSchema = z.object({
     .any()
     .refine((item: any) => item?.name, { message: "Please upload an image" }),
   name: z
-    .string({ required_error: "Name is required!" })
-    .min(3, { message: "Name must be at least 3 characters long!" })
-    .max(50, { message: "Name must not exceed 50 characters!" }),
+    .string({ required_error: "Company Name is required!" })
+    .min(3, { message: "Company Name must be at least 3 characters long!" })
+    .max(50, { message: "Company Name must not exceed 50 characters!" }),
   website: z
     .string({ required_error: "Website is required!" })
     .min(3, { message: "Website must be at least 3 characters long!" })
     .max(50, { message: "Website must not exceed 50 characters!" }),
-  location: z
-    .string({ required_error: "Location is required!" })
-    .min(3, { message: "Location must be at least 3 characters long!" })
-    .max(50, { message: "Location must not exceed 50 characters!" }),
-  employee: z
-    .string({ required_error: "Employee is required!" })
-    .min(3, { message: "Employee must be at least 3 characters long!" })
-    .max(50, { message: "Employee must not exceed 50 characters!" }),
-  industry: z
-    .string({ required_error: "Industry is required!" })
-    .min(3, { message: "Industry must be at least 3 characters long!" })
-    .max(50, { message: "Industry must not exceed 50 characters!" }),
+  location: z.string({ required_error: "Location is required!" }),
+  employee: z.string({ required_error: "Employee is required!" }),
+  industry: z.string({ required_error: "Industry is required!" }),
   dateFounded: z.date({ required_error: "Date founded is required!" }),
   techStack: z
-    .string()
+    .string({ required_error: "Tech Stack is required!" })
     .array()
     .nonempty({ message: "Tech Stack must be at least 1 tech stack" }),
   description: z
