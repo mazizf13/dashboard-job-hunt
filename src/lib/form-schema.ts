@@ -77,10 +77,7 @@ export const overvierFormSchema = z.object({
     .string({ required_error: "Industry is required!" })
     .min(3, { message: "Industry must be at least 3 characters long!" })
     .max(50, { message: "Industry must not exceed 50 characters!" }),
-  dateFounded: z
-    .string({ required_error: "Date founded is required!" })
-    .min(3, { message: "Date founded must be at least 3 characters long!" })
-    .max(50, { message: "Date founded must not exceed 50 characters!" }),
+  dateFounded: z.date({ required_error: "Date founded is required!" }),
   techStack: z
     .string()
     .array()
