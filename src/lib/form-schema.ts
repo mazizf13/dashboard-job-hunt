@@ -53,7 +53,7 @@ export const jobFromSchema = z.object({
     .nonempty({ message: "Benefits must be at least 1 benefit" }),
 });
 
-export const overvierFormSchema = z.object({
+export const overviewFormSchema = z.object({
   image: z
     .any()
     .refine((item: any) => item?.name, { message: "Please upload an image" }),
@@ -77,4 +77,12 @@ export const overvierFormSchema = z.object({
     .string({ required_error: "Description is required!" })
     .min(10, { message: "Description must be at least 10 characters long!" })
     .max(1000, { message: "Description must not exceed 1000 characters!" }),
+});
+
+export const socialMediaFormSchema = z.object({
+  linkedin: z.string({ required_error: "Linkedin is required!" }),
+  website: z.string({ required_error: "Website is required!" }),
+  instagram: z.string({ required_error: "Instagram is required!" }),
+  facebook: z.string().optional(),
+  x: z.string().optional(),
 });

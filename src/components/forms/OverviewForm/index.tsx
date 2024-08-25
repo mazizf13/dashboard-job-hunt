@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { overvierFormSchema } from "@/lib/form-schema";
+import { overviewFormSchema } from "@/lib/form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -49,11 +49,11 @@ interface OverviewFormProps {}
 const OverviewForm: FC<OverviewFormProps> = ({}) => {
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
 
-  const form = useForm<z.infer<typeof overvierFormSchema>>({
-    resolver: zodResolver(overvierFormSchema),
+  const form = useForm<z.infer<typeof overviewFormSchema>>({
+    resolver: zodResolver(overviewFormSchema),
   });
 
-  const onSubmit = (val: z.infer<typeof overvierFormSchema>) =>
+  const onSubmit = (val: z.infer<typeof overviewFormSchema>) =>
     console.log(val as Record<string, any>);
 
   useEffect(() => {
