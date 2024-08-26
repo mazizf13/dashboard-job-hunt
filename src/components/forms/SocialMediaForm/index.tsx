@@ -105,7 +105,9 @@ const SocialMediaForm: FC<SocialMediaFormProps> = ({
               name="facebook"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Facebook</FormLabel>
+                  <FormLabel>
+                    Facebook <span className="text-slate-400">(Optional)</span>
+                  </FormLabel>
                   <FormControl>
                     <Input
                       className="w-[450px]"
@@ -122,7 +124,9 @@ const SocialMediaForm: FC<SocialMediaFormProps> = ({
               name="x"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>X</FormLabel>
+                  <FormLabel>
+                    X <span className="text-slate-400">(Optional)</span>
+                  </FormLabel>
                   <FormControl>
                     <Input
                       className="w-[450px]"

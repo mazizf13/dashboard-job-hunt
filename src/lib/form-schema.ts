@@ -80,9 +80,34 @@ export const overviewFormSchema = z.object({
 });
 
 export const socialMediaFormSchema = z.object({
-  linkedin: z.string({ required_error: "Linkedin is required!" }),
-  website: z.string({ required_error: "Website is required!" }),
-  instagram: z.string({ required_error: "Instagram is required!" }),
+  linkedin: z
+    .string({ required_error: "Linkedin is required!" })
+    .min(3, { message: "LinkedIn url must be at least 3 characters long!" })
+    .max(50, { message: "LinkedIn url must not exceed 50 characters!" }),
+  website: z
+    .string({ required_error: "Website is required!" })
+    .min(3, { message: "Website url must be at least 3 characters long!" })
+    .max(50, { message: "Webiste url must not exceed 50 characters!" }),
+  instagram: z
+    .string({ required_error: "Instagram is required!" })
+    .min(3, { message: "Instagram url must be at least 3 characters long!" })
+    .max(50, { message: "Instagram url must not exceed 50 characters!" }),
   facebook: z.string().optional(),
   x: z.string().optional(),
+});
+
+export const teamFormSchema = z.object({
+  name: z
+    .string({ required_error: "Name is required" })
+    .min(3, { message: "Member name must be at least 3 characters long!" })
+    .max(50, { message: "Member name must not exceed 50 characters!" }),
+  position: z
+    .string({ required_error: "Position is required" })
+    .min(3, { message: "Position must be at least 3 characters long!" })
+    .max(50, { message: "Position must not exceed 50 characters!" }),
+  linkedin: z
+    .string({ required_error: "Linkedin is required" })
+    .min(3, { message: "LinkedIn url must be at least 3 characters long!" })
+    .max(50, { message: "LinkedIn url must not exceed 50 characters!" }),
+  instagram: z.string({ required_error: "Instagram is required" }).optional(),
 });
