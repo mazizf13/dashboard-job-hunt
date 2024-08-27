@@ -6,23 +6,18 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { signInFormSchema } from "@/lib/form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-// import { Metadata } from "next";
 import React, { FC } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 interface SignInPageProps {}
-
-// export const metadata: Metadata = {
-//   title: "Sign In",
-//   description: "JobHun",
-// };
 
 const SignInPage: FC<SignInPageProps> = ({}) => {
   const form = useForm<z.infer<typeof signInFormSchema>>({
@@ -38,10 +33,10 @@ const SignInPage: FC<SignInPageProps> = ({}) => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="border border-border p-5">
           <div className="font-semibold text-center text-2xl mb-2">
-            Login Your Account
+            Sign In Your Account
           </div>
           <div className="text-sm text-gray-400">
-            Enter your email and password to access the dashboard
+            Input your details to access the dashboard
           </div>
           <Form {...form}>
             <form
@@ -53,6 +48,7 @@ const SignInPage: FC<SignInPageProps> = ({}) => {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
+                    <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter your emaill..." {...field} />
                     </FormControl>
@@ -65,6 +61,7 @@ const SignInPage: FC<SignInPageProps> = ({}) => {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
+                    <FormLabel>Password</FormLabel>
                     <FormControl>
                       <Input placeholder="Enter your password..." {...field} />
                     </FormControl>
@@ -76,7 +73,7 @@ const SignInPage: FC<SignInPageProps> = ({}) => {
               <Button className="w-full">Sign In</Button>
 
               <div className="text-sm">
-                Don`t have an account? {" "}
+                Don`t have an account?{" "}
                 <Link href="/auth/signup" className="text-primary">
                   Sign Up
                 </Link>
