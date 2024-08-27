@@ -85,7 +85,7 @@ export const socialMediaFormSchema = z.object({
     .min(3, { message: "LinkedIn url must be at least 3 characters long!" })
     .max(50, { message: "LinkedIn url must not exceed 50 characters!" }),
   website: z
-    .string({ required_error: "Website is required!" })
+    .string({ required_error: "Webs ite is required!" })
     .min(3, { message: "Website url must be at least 3 characters long!" })
     .max(50, { message: "Webiste url must not exceed 50 characters!" }),
   instagram: z
@@ -110,4 +110,13 @@ export const teamFormSchema = z.object({
     .min(3, { message: "LinkedIn url must be at least 3 characters long!" })
     .max(50, { message: "LinkedIn url must not exceed 50 characters!" }),
   instagram: z.string({ required_error: "Instagram is required" }).optional(),
+});
+
+export const signInFormSchema = z.object({
+  email: z
+    .string({ required_error: "Email is required" })
+    .email({ message: "Please enter a valid email address" }),
+  password: z
+    .string({ required_error: "Password is required" })
+    .min(6, { message: "Password must be at least 6 characters long!" }),
 });
