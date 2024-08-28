@@ -33,7 +33,7 @@ const SignInPage: FC<SignInPageProps> = ({}) => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="border border-border p-5">
           <div className="font-semibold text-center text-2xl mb-2">
-            Sign In Your Account
+            Sign In To Your Account
           </div>
           <div className="text-sm text-gray-400">
             Input your details to access the dashboard
@@ -63,7 +63,11 @@ const SignInPage: FC<SignInPageProps> = ({}) => {
                   <FormItem>
                     <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter your password..." {...field} />
+                      <Input
+                        type="password"
+                        placeholder="Enter your password..."
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
