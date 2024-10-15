@@ -32,9 +32,7 @@ const SignInPage: FC<SignInPageProps> = ({}) => {
     <div className="relative w-full h-screen">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="border border-border p-5">
-          <div className="font-semibold text-center text-2xl mb-2">
-            Sign In
-          </div>
+          <div className="font-semibold text-center text-2xl mb-2">Sign In</div>
           <div className="text-sm text-gray-400">
             Input your details to access the dashboard
           </div>
