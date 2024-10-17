@@ -11,6 +11,7 @@ import {
   Settings,
   Users,
 } from "lucide-react";
+import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import React, { FC } from "react";
 
@@ -87,6 +88,7 @@ const Sidebar: FC<SidebarProps> = ({}) => {
             <Button
               variant={"ghost"}
               className="w-full text-red-500 hover:bg-red-200 hover:text-red-500 justify-start rounded-none"
+              onClick={() => signOut()}
             >
               <LogOut className="mr-2 text-lg" />
               Logout
