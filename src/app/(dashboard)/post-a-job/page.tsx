@@ -31,19 +31,23 @@ import { ArrowLeft } from "lucide-react";
 import React, { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import useSWR from "swr";
+
+import useSWR, { mutate } from "swr";
 import { fetcher } from "@/lib/utils";
 import { CategoryJob } from "@prisma/client";
+import { useSession } from "next-auth/react";
+
+import moment from "moment";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
 
 interface PostJobPageProps {}
 
 const PostJobPage: FC<PostJobPageProps> = ({}) => {
-  const { data, error, isLoading } = useSWR<CategoryJob[]>(
-    "/api/job/categories",
-    fetcher,
-  );
+  const { data } = useSWR<CategoryJob[]>("/api/job/categories", fetcher);
 
-  console.log(data);
+  const { data: session } = useSession();
+  const { toast } = useToast();
 
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
 
@@ -54,7 +58,47 @@ const PostJobPage: FC<PostJobPageProps> = ({}) => {
     },
   });
 
-  const onSubmit = (val: z.infer<typeof jobFromSchema>) => console.log(val);
+  const router = useRouter();
+
+  const onSubmit = async (val: z.infer<typeof jobFromSchema>) => {
+    try {
+      const body: any = {
+        applicants: 0,
+        benefits: val.benefits,
+        categoryId: val.categoryId,
+        companyId: session?.user.id!!,
+        datePosted: moment().toDate(),
+        description: val.jobDescription,
+        dueDate: moment().add(1, "M").toDate(),
+        jobType: val.jobType,
+        needs: 20,
+        niceToHaves: val.niceToHaves,
+        requiredSkills: val.requiredSkills,
+        responsibility: val.responsibility,
+        roles: val.roles,
+        salaryFrom: val.salaryFrom,
+        salaryTo: val.salaryTo,
+        whoYouAre: val.whoYouAre,
+      };
+
+      await fetch("/api/job", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      mutate("/api/job");
+
+      await router.push("/job-listings");
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Please try again",
+        variant: "destructive",
+      });
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     setEditorLoaded(true);
