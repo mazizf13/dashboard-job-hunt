@@ -54,9 +54,7 @@ export const jobFromSchema = z.object({
 });
 
 export const overviewFormSchema = z.object({
-  image: z
-    .any()
-    .refine((item: any) => item?.name, { message: "Please upload an image" }),
+  image: z.any(),
   name: z
     .string({ required_error: "Company Name is required!" })
     .min(3, { message: "Company Name must be at least 3 characters long!" })

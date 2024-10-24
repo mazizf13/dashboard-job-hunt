@@ -40,6 +40,10 @@ import InputSkills from "@/components/organisms/InputSkills";
 import CKEditor from "@/components/organisms/CKEditor";
 import useSWR from "swr";
 import { CompanyOverview, Industry } from "@prisma/client";
+import { supabaseUploadFile } from "@/lib/supabase";
+import { useSession } from "next-auth/react";
+import { useToast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 interface OverviewFormProps {
   detail: CompanyOverview | undefined;
@@ -47,6 +51,10 @@ interface OverviewFormProps {
 
 const OverviewForm: FC<OverviewFormProps> = ({ detail }) => {
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
+
+  const { data: session } = useSession();
+  const { toast } = useToast();
+  const router = useRouter();
 
   const { data } = useSWR<Industry[]>("/api/company/industry", fetcher);
 
@@ -65,8 +73,46 @@ const OverviewForm: FC<OverviewFormProps> = ({ detail }) => {
     },
   });
 
-  const onSubmit = (val: z.infer<typeof overviewFormSchema>) =>
-    console.log(val as Record<string, any>);
+  const onSubmit = async (val: z.infer<typeof overviewFormSchema>) => {
+    try {
+      let filename = "";
+
+      if (typeof val.image === "object") {
+        const uploadImg = await supabaseUploadFile(val.image, "company");
+        filename = uploadImg.filename;
+      } else {
+        filename = val.image;
+      }
+
+      const body = {
+        ...val,
+        image: filename,
+        companyId: session?.user.id,
+      };
+
+      await fetch("/api/company/overview", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      toast({
+        title: "Success",
+        description: "Company overview has been updated",
+        variant: "default",
+      });
+
+      router.refresh();
+    } catch (error) {
+      await toast({
+        title: "Error",
+        description: "Please try again",
+        variant: "destructive",
+      });
+
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     setEditorLoaded(true);
