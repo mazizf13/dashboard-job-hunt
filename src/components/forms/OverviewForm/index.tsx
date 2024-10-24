@@ -31,23 +31,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React, { FC, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import {
-  EMPLOYEE_OPTIONS,
-  INDUSTRY_OPTIONS,
-  LOCATION_OPTIONS,
-  optionType,
-} from "@/constants";
+import { EMPLOYEE_OPTIONS, LOCATION_OPTIONS, optionType } from "@/constants";
 import { CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { format } from "date-fns";
-import { cn } from "@/lib/utils";
+import { cn, fetcher } from "@/lib/utils";
 import InputSkills from "@/components/organisms/InputSkills";
 import CKEditor from "@/components/organisms/CKEditor";
+import useSWR from "swr";
+import { Industry } from "@prisma/client";
 
 interface OverviewFormProps {}
 
 const OverviewForm: FC<OverviewFormProps> = ({}) => {
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
+
+  const { data } = useSWR<Industry[]>("/api/company/industry", fetcher);
 
   const form = useForm<z.infer<typeof overviewFormSchema>>({
     resolver: zodResolver(overviewFormSchema),
@@ -196,13 +195,11 @@ const OverviewForm: FC<OverviewFormProps> = ({}) => {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          {INDUSTRY_OPTIONS.map(
-                            (item: optionType, i: number) => (
-                              <SelectItem key={item.id + i} value={item.id}>
-                                {item.label}
-                              </SelectItem>
-                            ),
-                          )}
+                          {data?.map((item: Industry) => (
+                            <SelectItem key={item.id} value={item.id}>
+                              {item.name}
+                            </SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                       <FormMessage />

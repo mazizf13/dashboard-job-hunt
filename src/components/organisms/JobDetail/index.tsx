@@ -56,7 +56,6 @@ const JobDetail: FC<JobDetailProps> = ({ detail }) => {
 
         <div>
           <div className="text-3xl font-semibold">About This Role</div>
-
           <div className="shadow p-3 text-center mt-10">
             {detail?.applicants}{" "}
             <span className="text-gray-500">of {detail?.needs} capacity</span>
