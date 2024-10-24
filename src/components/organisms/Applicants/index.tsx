@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -18,7 +17,6 @@ interface ApplicantsProps {
 const Applicants: FC<ApplicantsProps> = ({ applicants }) => {
   return (
     <Table>
-      <TableCaption>A list of your recent applicants.</TableCaption>
       <TableHeader>
         <TableRow>
           {JOB_APPLICANTS_COLUMNS.map((item: string, i: number) => (
@@ -32,7 +30,7 @@ const Applicants: FC<ApplicantsProps> = ({ applicants }) => {
           <>
             {applicants.map((item: any, i: number) => (
               <TableRow key={item.id + i}>
-                <TableCell>{item.name}</TableCell>
+                <TableCell>{item.user.name}</TableCell>
                 <TableCell>
                   <ButtonActionTable url="" />
                 </TableCell>
