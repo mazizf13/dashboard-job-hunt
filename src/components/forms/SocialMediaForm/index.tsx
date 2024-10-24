@@ -11,35 +11,66 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
 import { socialMediaFormSchema } from "@/lib/form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CompanySocialMedia } from "@prisma/client";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 import React, { FC } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 interface SocialMediaFormProps {
-  linkedin?: string;
-  website?: string;
-  instagram?: string;
-  github?: string;
-  twitter?: string;
-  facebook?: string;
+  detail: CompanySocialMedia | undefined;
 }
 
-const SocialMediaForm: FC<SocialMediaFormProps> = ({
-  linkedin,
-  website,
-  instagram,
-  github,
-  twitter,
-  facebook,
-}) => {
+const SocialMediaForm: FC<SocialMediaFormProps> = ({ detail }) => {
   const form = useForm<z.infer<typeof socialMediaFormSchema>>({
     resolver: zodResolver(socialMediaFormSchema),
+    defaultValues: {
+      linkedin: detail?.linkedin || "",
+      website: detail?.website || "",
+      instagram: detail?.instagram || "",
+      facebook: detail?.facebook || "",
+      x: detail?.x || "",
+    },
   });
 
-  const onSubmit = (val: z.infer<typeof socialMediaFormSchema>) =>
-    console.log(val);
+  const { data: session } = useSession();
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const onSubmit = async (val: z.infer<typeof socialMediaFormSchema>) => {
+    try {
+      const body = {
+        ...val,
+        companyId: session?.user.id,
+      };
+
+      await fetch("/api/company/social-media", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      await router.refresh();
+
+      toast({
+        title: "Success",
+        description: "Company Social Media Updated",
+        variant: "default",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Please try again",
+        variant: "destructive",
+      });
+
+      console.log(error);
+    }
+  };
 
   return (
     <Form {...form}>
