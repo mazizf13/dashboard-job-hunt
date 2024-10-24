@@ -39,17 +39,30 @@ import { cn, fetcher } from "@/lib/utils";
 import InputSkills from "@/components/organisms/InputSkills";
 import CKEditor from "@/components/organisms/CKEditor";
 import useSWR from "swr";
-import { Industry } from "@prisma/client";
+import { CompanyOverview, Industry } from "@prisma/client";
 
-interface OverviewFormProps {}
+interface OverviewFormProps {
+  detail: CompanyOverview | undefined;
+}
 
-const OverviewForm: FC<OverviewFormProps> = ({}) => {
+const OverviewForm: FC<OverviewFormProps> = ({ detail }) => {
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false);
 
   const { data } = useSWR<Industry[]>("/api/company/industry", fetcher);
 
   const form = useForm<z.infer<typeof overviewFormSchema>>({
     resolver: zodResolver(overviewFormSchema),
+    defaultValues: {
+      name: detail?.name || "",
+      website: detail?.website || "",
+      location: detail?.location || "",
+      employee: detail?.employee || "",
+      industry: detail?.industry || "",
+      dateFounded: detail?.dateFounded,
+      techStack: detail?.techStack || [],
+      description: detail?.description || "",
+      image: detail?.image || "",
+    },
   });
 
   const onSubmit = (val: z.infer<typeof overviewFormSchema>) =>
