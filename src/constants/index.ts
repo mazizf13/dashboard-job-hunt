@@ -26,12 +26,11 @@ export const JOB_LISTING_COLUMNS: string[] = [
   "Needs",
 ];
 
-export const JOB_APPLICANTS_COLUMNS: string[] = ["Name", "Applied Date"];
+export const JOB_APPLICANTS_COLUMNS: string[] = ["Name"];
 
 export const JOB_APPLICANTS_DATA = [
   {
     name: "John Doe",
-    appliedDate: "18 Aug 2024",
   },
 ];
 
